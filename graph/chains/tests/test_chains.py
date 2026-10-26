@@ -44,3 +44,26 @@ def test_generation_chain() -> None:
     docs = retriever.invoke(question)
     generation = generation_chain.invoke({"context": docs, "question": question})
     print(generation)
+
+
+# Hallucination checker
+from graph.chains.hallucination_grader import hallucination_grader, GradeHallucinations
+
+
+def test_hallucination_grader_answer_yes() -> None:
+    question = "agent memory"
+    docs = retriever.invoke(question)
+    generation = generation_chain.invoke({"context": docs, "question": question})
+    res: GradeHallucinations = hallucination_grader.invoke(
+        {"documents": docs, "generation": generation}
+    )
+    assert res.binary_score == "yes"
+
+def test_hallucination_grader_answer_no() -> None:
+    question = "agent memory"
+    docs = retriever.invoke(question)
+    # generation = generation_chain.invoke({"context": docs, "question": question})
+    res: GradeHallucinations = hallucination_grader.invoke(
+        {"documents": docs, "generation": "In order to mow the lawn, you need a lawnmower"}
+    )
+    assert res.binary_score == "no"
