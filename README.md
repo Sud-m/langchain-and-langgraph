@@ -8,17 +8,17 @@ Dates below come from code commits in America/Phoenix time, excluding README-onl
 
 | Code dates (2026) | Branch | What to revisit |
 | --- | --- | --- |
-| October 13–14, 2026 | [project/hello-world](https://github.com/Sud-m/langchain/tree/project/hello-world) | PromptTemplate, LCEL, invoke, AIMessage |
-| October 14, 2026 | [search-agent](https://github.com/Sud-m/langchain/tree/search-agent) | create_agent, Tavily, Pydantic answer + sources |
-| October 14–17, 2026 | [agents-under-the-hood](https://github.com/Sud-m/langchain/tree/agents-under-the-hood) | Manual tool loop, schemas, ToolMessage, raw ReAct |
-| October 17–18, 2026 | [rag-first](https://github.com/Sud-m/langchain/tree/rag-first) | Embeddings, Pinecone, fixed RAG, runnable composition |
-| October 20–21, 2026 | [doc-assistant](https://github.com/Sud-m/langchain/tree/doc-assistant) | Async ingestion, agentic RAG, artifacts, Streamlit |
-| October 22, 2026 | [langgraph](https://github.com/Sud-m/langchain/tree/langgraph) | First StateGraph, MessagesState, nodes, ToolNode, edges |
-| October 23, 2026 (morning) | [reflection-agent](https://github.com/Sud-m/langchain/tree/reflection-agent) | Generate/critique loop, MessagesPlaceholder, add_messages |
-| October 23, 2026 (afternoon/evening) | [reflexion-agent](https://github.com/Sud-m/langchain/tree/reflexion-agent) | Structured research/revision, partial prompts, tool executor |
-| October 26, 2026 (11:46) | [agent-rag](https://github.com/Sud-m/langchain/tree/agent-rag) | Modular graph, relevance grader, corrective web search |
-| October 26, 2026 (12:02–13:25) | [self-rag](https://github.com/Sud-m/langchain/tree/self-rag) | Grounding/usefulness graders, regeneration and search loops |
-| October 27, 2026 | [adaptive-rag](https://github.com/Sud-m/langchain/tree/adaptive-rag) | Conditional entry, structured datasource router, safe missing-state handling |
+| October 13–14, 2026 | [project/hello-world](https://github.com/Sud-m/langchain-and-langgraph/tree/project/hello-world) | PromptTemplate, LCEL, invoke, AIMessage |
+| October 14, 2026 | [search-agent](https://github.com/Sud-m/langchain-and-langgraph/tree/search-agent) | create_agent, Tavily, Pydantic answer + sources |
+| October 14–17, 2026 | [agents-under-the-hood](https://github.com/Sud-m/langchain-and-langgraph/tree/agents-under-the-hood) | Manual tool loop, schemas, ToolMessage, raw ReAct |
+| October 17–18, 2026 | [rag-first](https://github.com/Sud-m/langchain-and-langgraph/tree/rag-first) | Embeddings, Pinecone, fixed RAG, runnable composition |
+| October 20–21, 2026 | [doc-assistant](https://github.com/Sud-m/langchain-and-langgraph/tree/doc-assistant) | Async ingestion, agentic RAG, artifacts, Streamlit |
+| October 22, 2026 | [langgraph](https://github.com/Sud-m/langchain-and-langgraph/tree/langgraph) | First StateGraph, MessagesState, nodes, ToolNode, edges |
+| October 23, 2026 (morning) | [reflection-agent](https://github.com/Sud-m/langchain-and-langgraph/tree/reflection-agent) | Generate/critique loop, MessagesPlaceholder, add_messages |
+| October 23, 2026 (afternoon/evening) | [reflexion-agent](https://github.com/Sud-m/langchain-and-langgraph/tree/reflexion-agent) | Structured research/revision, partial prompts, tool executor |
+| October 26, 2026 (11:46) | [agent-rag](https://github.com/Sud-m/langchain-and-langgraph/tree/agent-rag) | Modular graph, relevance grader, corrective web search |
+| October 26, 2026 (12:02–13:25) | [self-rag](https://github.com/Sud-m/langchain-and-langgraph/tree/self-rag) | Grounding/usefulness graders, regeneration and search loops |
+| October 27, 2026 | [adaptive-rag](https://github.com/Sud-m/langchain-and-langgraph/tree/adaptive-rag) | Conditional entry, structured datasource router, safe missing-state handling |
 | Current scaffold; no prior code commit | `mcp-practice` (this branch) | Learning index; MCP implementation has not started |
 
 ## Where did we first do this?
@@ -39,7 +39,7 @@ These “firsts” refer to the inspected practice sequence, not the first appea
 
 ## Diagrams
 
-- `langgraph`: [flow.png](https://github.com/Sud-m/langchain/blob/langgraph/flow.png).
+- `langgraph`: [flow.png](https://github.com/Sud-m/langchain-and-langgraph/blob/langgraph/flow.png).
 - `reflection-agent`, `reflexion-agent`, `agent-rag`, `self-rag`, and `adaptive-rag`: `graph.png` on each branch.
 - Each graph branch README includes a Mermaid version of its committed flow. The self-rag README explicitly shows its extra unconditional exit; adaptive-rag fixes it.
 - Earlier branches use short text flow diagrams. Static logo assets are not execution graphs.
