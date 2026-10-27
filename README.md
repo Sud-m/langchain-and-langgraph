@@ -37,6 +37,6 @@ Local `.env`: `OPENAI_API_KEY`, `TAVILY_API_KEY`, `PINECONE_API_KEY`, and `INDEX
 
 ## Place in the practice sequence
 
-Previous topic: [rag-first](https://github.com/Sud-m/langchain/tree/rag-first) · Next topic: [langgraph](https://github.com/Sud-m/langchain/tree/langgraph) · [Full learning timeline](https://github.com/Sud-m/langchain/blob/mcp-practice/README.md)
+Previous topic: [rag-first](https://github.com/Sud-m/langchain-and-langgraph/tree/rag-first) · Next topic: [langgraph](https://github.com/Sud-m/langchain-and-langgraph/tree/langgraph) · [Full learning timeline](https://github.com/Sud-m/langchain-and-langgraph/blob/mcp-practice/README.md)
 
 Dates reflect code commits before this README update, not branch creation times. Comparisons follow the learning sequence, not necessarily Git ancestry. Practice based on Eden Marco's LangChain/LangGraph course.
