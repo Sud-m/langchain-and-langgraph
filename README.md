@@ -33,6 +33,6 @@ Local `.env`: `OPENAI_API_KEY` for the LangChain example. Raw examples require O
 
 ## Place in the practice sequence
 
-Previous topic: [search-agent](https://github.com/Sud-m/langchain/tree/search-agent) · Next topic: [rag-first](https://github.com/Sud-m/langchain/tree/rag-first) · [Full learning timeline](https://github.com/Sud-m/langchain/blob/mcp-practice/README.md)
+Previous topic: [search-agent](https://github.com/Sud-m/langchain-and-langgraph/tree/search-agent) · Next topic: [rag-first](https://github.com/Sud-m/langchain-and-langgraph/tree/rag-first) · [Full learning timeline](https://github.com/Sud-m/langchain-and-langgraph/blob/mcp-practice/README.md)
 
 Dates reflect code commits before this README update, not branch creation times. Comparisons follow the learning sequence, not necessarily Git ancestry. Practice based on Eden Marco's LangChain/LangGraph course.
