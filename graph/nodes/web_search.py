@@ -11,7 +11,7 @@ web_search_tool = TavilySearch(max_results=3)
 def web_search(state: GraphState) -> Dict[str, Any]:
     print("Web search")
     question = state["question"]
-    documents = state["documents"]
+    documents = state.get("documents", None)
     tavily_results = web_search_tool.invoke({"query": question})
 
     joined_tavily_result = "\n".join([res["content"] for res in tavily_results["results"]])
@@ -25,5 +25,5 @@ def web_search(state: GraphState) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     web_search(
-        state={"question": "agent memory", "documents": None}
+        state={"question": "how to bake a cake", "documents": None}
     )  # A scenario where we didn't find any relevant documents at all

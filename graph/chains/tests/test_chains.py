@@ -59,11 +59,30 @@ def test_hallucination_grader_answer_yes() -> None:
     )
     assert res.binary_score == "yes"
 
+
 def test_hallucination_grader_answer_no() -> None:
     question = "agent memory"
     docs = retriever.invoke(question)
     # generation = generation_chain.invoke({"context": docs, "question": question})
     res: GradeHallucinations = hallucination_grader.invoke(
-        {"documents": docs, "generation": "In order to mow the lawn, you need a lawnmower"}
+        {
+            "documents": docs,
+            "generation": "In order to mow the lawn, you need a lawnmower",
+        }
     )
     assert res.binary_score == "no"
+
+
+# Router
+from graph.chains.router import question_router_chain, RouteQuery
+
+
+def test_router_to_vectorstore() -> None:
+    question = "agent memory"
+    res: RouteQuery = question_router_chain.invoke({"question": question})
+    assert res.datasource == "vectorstore"
+
+def test_router_to_websearch() -> None:
+    question = "How to bake a sponge cake"
+    res: RouteQuery = question_router_chain.invoke({"question": question})
+    assert res.datasource == "websearch"

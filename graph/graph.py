@@ -8,6 +8,7 @@ from graph.nodes import generate, web_search, grade_documents, retrieve
 from graph.state import GraphState
 from graph.chains.hallucination_grader import hallucination_grader
 from graph.chains.answer_grader import answer_grader
+from graph.chains.router import RouteQuery, question_router_chain
 
 
 def decide_to_generate(state):
@@ -29,7 +30,7 @@ def grade_generation_grounded_in_documents_and_question(state: GraphState) -> st
     score = hallucination_grader.invoke(
         {"documents": documents, "generation": generation}
     )
-    if hallucination_grade := score.binary_score == "yes":  # no hallucination
+    if score.binary_score == "yes":  # no hallucination
         print(" GENERATION IS GROUNDED IN DOCUMENTS")
         print(" GRADING GENERATION VS QUESTION")
         answer_score = answer_grader.invoke(
@@ -46,13 +47,29 @@ def grade_generation_grounded_in_documents_and_question(state: GraphState) -> st
         return "not grounded"
 
 
+def route_question(state: GraphState):
+    print("ROUTING QUESTION")
+    question = state["question"]
+    res: RouteQuery = question_router_chain.invoke({"question": question})
+    if res.datasource == "websearch":
+        print(" ROUTING QUESTION TO WEBSEARCH")
+        return WEBSEARCH
+    elif res.datasource == "vectorstore":
+        print(" ROUTING QUESTION TO VECTORSTORE (RAG)")
+        return RETRIEVE
+
+
 flow = StateGraph(GraphState)
 flow.add_node(RETRIEVE, retrieve)
 flow.add_node(GENERATE, generate)
 flow.add_node(WEBSEARCH, web_search)
 flow.add_node(GRADE_DOCUMENTS, grade_documents)
-flow.set_entry_point(RETRIEVE)
+# flow.set_entry_point(RETRIEVE)
 flow.add_edge(RETRIEVE, GRADE_DOCUMENTS)
+
+flow.set_conditional_entry_point(
+    route_question, {WEBSEARCH: WEBSEARCH, RETRIEVE: RETRIEVE}
+)
 
 flow.add_conditional_edges(
     GRADE_DOCUMENTS, decide_to_generate, {WEBSEARCH: WEBSEARCH, GENERATE: GENERATE}
@@ -63,6 +80,6 @@ flow.add_conditional_edges(
     {"not grounded": GENERATE, "useful": END, "not useful": WEBSEARCH},
 )
 flow.add_edge(WEBSEARCH, GENERATE)
-flow.add_edge(GENERATE, END)
+# flow.add_edge(GENERATE, END) # Not needed since conditional edge handles end, not ideal but can be accounted for
 app = flow.compile()
 app.get_graph().draw_mermaid_png(output_file_path="graph.png")
