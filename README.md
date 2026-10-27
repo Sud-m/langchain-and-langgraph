@@ -37,6 +37,6 @@ Local `.env`: `OPENAI_API_KEY`. Diagram rendering may require network access.
 
 ## Place in the practice sequence
 
-Previous topic: [langgraph](https://github.com/Sud-m/langchain/tree/langgraph) · Next topic: [reflexion-agent](https://github.com/Sud-m/langchain/tree/reflexion-agent) · [Full learning timeline](https://github.com/Sud-m/langchain/blob/mcp-practice/README.md)
+Previous topic: [langgraph](https://github.com/Sud-m/langchain-and-langgraph/tree/langgraph) · Next topic: [reflexion-agent](https://github.com/Sud-m/langchain-and-langgraph/tree/reflexion-agent) · [Full learning timeline](https://github.com/Sud-m/langchain-and-langgraph/blob/mcp-practice/README.md)
 
 Dates reflect code commits before this README update, not branch creation times. Comparisons follow the learning sequence, not necessarily Git ancestry. Practice based on Eden Marco's LangChain/LangGraph course.
