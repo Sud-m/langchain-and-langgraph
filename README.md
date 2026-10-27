@@ -37,6 +37,6 @@ Local `.env`: `OPENAI_API_KEY` and `WEATHER_API_KEY` for OpenWeather. Diagram re
 
 ## Place in the practice sequence
 
-Previous topic: [doc-assistant](https://github.com/Sud-m/langchain/tree/doc-assistant) · Next topic: [reflection-agent](https://github.com/Sud-m/langchain/tree/reflection-agent) · [Full learning timeline](https://github.com/Sud-m/langchain/blob/mcp-practice/README.md)
+Previous topic: [doc-assistant](https://github.com/Sud-m/langchain-and-langgraph/tree/doc-assistant) · Next topic: [reflection-agent](https://github.com/Sud-m/langchain-and-langgraph/tree/reflection-agent) · [Full learning timeline](https://github.com/Sud-m/langchain-and-langgraph/blob/mcp-practice/README.md)
 
 Dates reflect code commits before this README update, not branch creation times. Comparisons follow the learning sequence, not necessarily Git ancestry. Practice based on Eden Marco's LangChain/LangGraph course.
