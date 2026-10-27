@@ -1,27 +1,38 @@
-# LangChain Hello World
+# Hello World: prompt templates and the first chain
 
-A simple Python example that uses a LangChain prompt and chat model to turn a sample biography into a short summary and two interesting facts.
+Branch: `project/hello-world` · Code dates: October 13–14, 2026.
 
-## Setup
+**Come back here for:** First `PromptTemplate`, `ChatOpenAI`, LCEL pipe (`|`), and dictionary input to `.invoke()`.
 
-Requires Python 3.14+, uv, and an OpenAI API key.
+## What changed
 
-```bash
-git clone --branch project/hello-world https://github.com/Sud-m/langchain.git
-cd langchain
-uv sync
+Starting point: one prompt and one model call, before tools, retrieval, or graphs.
+
+## Code and flow
+
+- [main.py](main.py): formats a sample biography into a summary prompt, composes `summary_prompt_template | llm`, invokes it with `{"information": information}`, and prints `response.content`.
+- Uses GPT-5; a commented `ChatOllama` alternative shows how a local model could replace it.
+- The embedded biography is sample input, not a verified factual source.
+
+```text
+biography → PromptTemplate → chat model → AIMessage.content
 ```
 
-Create a `.env` file in the project root:
-
-```dotenv
-OPENAI_API_KEY=your-api-key
-```
+`PromptTemplate` supplies reusable placeholders. It does not validate factual accuracy or prevent prompt injection. The two static logo images are branding assets; this branch has no workflow diagram.
 
 ## Run
 
+Run from the repository root with Python 3.14+. Dependencies follow this branch's `pyproject.toml`; `--no-install-project` avoids building the exercise's package scaffold.
+
 ```bash
-uv run python main.py
+uv sync --no-install-project
+uv run --no-sync python main.py
 ```
 
-The example uses `gpt-5`. Edit the sample text, prompt, or model in `main.py` to experiment. An alternative `ChatOllama` configuration is included as a comment for local models.
+Local `.env`: `OPENAI_API_KEY`.
+
+## Place in the practice sequence
+
+Next topic: [search-agent](https://github.com/Sud-m/langchain/tree/search-agent) · [Full learning timeline](https://github.com/Sud-m/langchain/blob/mcp-practice/README.md)
+
+Dates reflect code commits before this README update, not branch creation times. Comparisons follow the learning sequence, not necessarily Git ancestry. Practice based on Eden Marco's LangChain/LangGraph course.
