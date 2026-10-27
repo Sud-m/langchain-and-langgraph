@@ -39,6 +39,6 @@ Local `.env`: `OPENAI_API_KEY` and `TAVILY_API_KEY`. Diagram rendering may requi
 
 ## Place in the practice sequence
 
-Previous topic: [reflection-agent](https://github.com/Sud-m/langchain/tree/reflection-agent) · Next topic: [agent-rag](https://github.com/Sud-m/langchain/tree/agent-rag) · [Full learning timeline](https://github.com/Sud-m/langchain/blob/mcp-practice/README.md)
+Previous topic: [reflection-agent](https://github.com/Sud-m/langchain-and-langgraph/tree/reflection-agent) · Next topic: [agent-rag](https://github.com/Sud-m/langchain-and-langgraph/tree/agent-rag) · [Full learning timeline](https://github.com/Sud-m/langchain-and-langgraph/blob/mcp-practice/README.md)
 
 Dates reflect code commits before this README update, not branch creation times. Comparisons follow the learning sequence, not necessarily Git ancestry. Practice based on Eden Marco's LangChain/LangGraph course.
