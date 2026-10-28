@@ -1,62 +1,67 @@
-# LangChain / LangGraph practice: learning timeline
+# MCP practice
 
-A quick map of what was implemented, where concepts first appeared, and which branch to revisit. The linked branch READMEs contain file pointers, run instructions, diagrams, and snapshot-specific limitations.
+Practice connecting Python tools to clients and LangChain agents using the MCP SDK and `langchain.mcp`.
 
-Dates below come from code commits in America/Phoenix time, excluding README-only edits. Branches are often independent snapshots; “previous” means the previous learning topic, not necessarily the Git parent.
+## What we practiced
 
-## Branches in date order
+- **Server:** register tools, a resource, and a prompt with `MCPServer`.
+- **Direct SDK client:** discover tools and call `add` explicitly using `Client` and `StdioServerParameters`.
+- **LangChain adapter:** convert MCP tool schemas into LangChain tools with `MCPAdapter`.
+- **Agent:** use `create_agent` to let the model choose tools and continue calling them until it answers.
+- **Transports:** stdio launches a local server subprocess; Streamable HTTP connects to a separately running server.
 
-| Code dates (2026) | Branch | What to revisit |
-| --- | --- | --- |
-| October 13–14, 2026 | [project/hello-world](https://github.com/Sud-m/langchain-and-langgraph/tree/project/hello-world) | PromptTemplate, LCEL, invoke, AIMessage |
-| October 14, 2026 | [search-agent](https://github.com/Sud-m/langchain-and-langgraph/tree/search-agent) | create_agent, Tavily, Pydantic answer + sources |
-| October 14–17, 2026 | [agents-under-the-hood](https://github.com/Sud-m/langchain-and-langgraph/tree/agents-under-the-hood) | Manual tool loop, schemas, ToolMessage, raw ReAct |
-| October 17–18, 2026 | [rag-first](https://github.com/Sud-m/langchain-and-langgraph/tree/rag-first) | Embeddings, Pinecone, fixed RAG, runnable composition |
-| October 20–21, 2026 | [doc-assistant](https://github.com/Sud-m/langchain-and-langgraph/tree/doc-assistant) | Async ingestion, agentic RAG, artifacts, Streamlit |
-| October 22, 2026 | [langgraph](https://github.com/Sud-m/langchain-and-langgraph/tree/langgraph) | First StateGraph, MessagesState, nodes, ToolNode, edges |
-| October 23, 2026 (morning) | [reflection-agent](https://github.com/Sud-m/langchain-and-langgraph/tree/reflection-agent) | Generate/critique loop, MessagesPlaceholder, add_messages |
-| October 23, 2026 (afternoon/evening) | [reflexion-agent](https://github.com/Sud-m/langchain-and-langgraph/tree/reflexion-agent) | Structured research/revision, partial prompts, tool executor |
-| October 26, 2026 (11:46) | [agent-rag](https://github.com/Sud-m/langchain-and-langgraph/tree/agent-rag) | Modular graph, relevance grader, corrective web search |
-| October 26, 2026 (12:02–13:25) | [self-rag](https://github.com/Sud-m/langchain-and-langgraph/tree/self-rag) | Grounding/usefulness graders, regeneration and search loops |
-| October 27, 2026 | [adaptive-rag](https://github.com/Sud-m/langchain-and-langgraph/tree/adaptive-rag) | Conditional entry, structured datasource router, safe missing-state handling |
-| Current scaffold; no prior code commit | `mcp-practice` (this branch) | Learning index; MCP implementation has not started |
+Compared with the earlier tool-loop exercises, the tool functions now run in a separate MCP server. The agent still decides which calls to make; MCP carries the requests and results.
 
-## Where did we first do this?
+## Examples
 
-- **Prompt templates, LCEL `|`, dictionary `.invoke()`:** `project/hello-world`.
-- **Agent-managed tools and Pydantic output:** `search-agent`.
-- **Manual tool dispatch, tool schemas, and `ToolMessage`:** `agents-under-the-hood`.
-- **Embeddings, chunking, Pinecone retrieval, runnable composition:** `rag-first`.
-- **Concurrent site ingestion, retriever artifacts, chat UI:** `doc-assistant`.
-- **Explicit graph nodes, state, edges, conditional tool loop:** `langgraph`.
-- **Critique/rewrite roles and message placeholders:** `reflection-agent`.
-- **Critique plus research, partial prompts, named tool executors:** `reflexion-agent`.
-- **Modular RAG nodes/chains and relevance-based web fallback:** `agent-rag`.
-- **Post-generation grounding and answer checks:** `self-rag`.
-- **Conditional entry and structured datasource routing:** `adaptive-rag`.
+| File | Purpose |
+| --- | --- |
+| `servers/practice_server.py` | `add`, placeholder `search_books`, `greeting://{name}` resource, and `summarize` prompt |
+| `sdk_client.py` | Launch the server over stdio, print tool schemas, and call `add(12, 14)` without an LLM |
+| `practice_client.py` | Launch over stdio and let an agent perform dependent additions; print its messages |
+| `main.py` | Connect an agent to `http://localhost:8000/mcp` |
 
-These “firsts” refer to the inspected practice sequence, not the first appearance of a feature in LangChain itself.
+## Run locally
 
-## Diagrams
+Run commands from the repository root. These commands describe the local examples; the client/server changes are currently uncommitted.
 
-- `langgraph`: [flow.png](https://github.com/Sud-m/langchain-and-langgraph/blob/langgraph/flow.png).
-- `reflection-agent`, `reflexion-agent`, `agent-rag`, `self-rag`, and `adaptive-rag`: `graph.png` on each branch.
-- Each graph branch README includes a Mermaid version of its committed flow. The self-rag README explicitly shows its extra unconditional exit; adaptive-rag fixes it.
-- Earlier branches use short text flow diagrams. Static logo assets are not execution graphs.
+```bash
+uv sync
+```
 
-## Useful distinctions
+For either agent example, set `OPENAI_API_KEY` in a local `.env` file.
 
-- **Chain:** application-defined steps. **Agent:** model-directed tool decisions. **Graph:** explicit state and routing for either kind of workflow.
-- **Reflection:** critique and rewrite. **Our reflexion exercise:** critique, search, and rewrite using new evidence.
-- **Corrective RAG:** assess retrieved chunks before answering. **Self-RAG:** also assess the answer. **Adaptive RAG:** first choose where to obtain evidence.
-- `k` counts retrieved chunks, not unique pages or guaranteed relevant results. Grader decisions can be wrong; a successful route is not proof of correctness.
+Direct MCP call, with no LLM:
 
-## Current branch: mcp-practice
+```bash
+uv run sdk_client.py
+```
 
-This branch publishes the learning index only. At the time of this update, the local workspace also has an uncommitted uv scaffold (`pyproject.toml`, `.python-version`, `.gitignore`, and a hello-world package under `src/`). Those files are intentionally left uncommitted by this documentation task. There is no implemented MCP client, server, transport, or tool integration yet, and no MCP graph to run.
+Agent over stdio; the client starts the server automatically:
 
-## Returning to an exercise
+```bash
+uv run practice_client.py
+```
 
-Switch to the branch and read its README. Run commands from the repository root; nested modules use `python -m graph.nodes.web_search`, rather than executing a nested file directly. Branches have different dependencies and local `.env` requirements, so sync the selected branch's environment before running it. Do not copy credentials into documentation.
+Agent over HTTP; keep the server running in one terminal:
 
-Practice based on Eden Marco's LangChain/LangGraph course. Summaries describe committed code rather than every intermediate experiment from the course.
+```bash
+uv run mcp run servers/practice_server.py --transport streamable-http
+```
+
+In another terminal:
+
+```bash
+uv run main.py
+```
+
+## Remember
+
+- `list_tools()` sends a `ListToolsRequest`; a tool call sends a `CallToolRequest`. These are SDK types, constructed underneath the convenience methods.
+- SDK results are typed objects; use `.model_dump_json(indent=2)` to inspect them.
+- LangChain tools use `await tool.ainvoke({...})` for asynchronous execution.
+- `bind_tools()` lets a model request tools; `create_agent` also manages execution and follow-up model calls.
+- An agent can make redundant calls. A fixed workflow gives your code control over the exact sequence.
+- `search_books` returns placeholder text, not real catalog results. An MCP prompt returns prompt content; it does not invoke a model.
+
+[LangChain MCP documentation](https://docs.langchain.com/oss/python/langchain/mcp) · [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
